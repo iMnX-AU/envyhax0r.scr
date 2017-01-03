@@ -1,0 +1,109 @@
+#!/bin/bash
+
+usedeb="1"
+usedebsrc="1"
+usecanonical="1"
+usecanonicalsrc="1"
+usesecurity="1"
+usesecuritysrc="1"
+usenext="0"
+
+flav="xenial"
+nextflav="yakkety"
+
+http_repo="http://ftp.iinet.net.au/linux/ubuntu"
+http_security="http://security.ubuntu.com/ubuntu"
+http_canonical="http://archive.canonical.com/ubuntu"
+
+repos="${flav} ${flav}-updates ${flav}-backports"
+repo_parts="main restricted universe multiverse"
+http_security="http://security.ubuntu.com/ubuntu"
+security_repo="${flav}"
+security_repo_parts="main restricted universe multiverse"
+http_canonical="http://archive.canonical.com/ubuntu"
+canonical_repo="${flav}"
+canonical_repo_parts="partner"
+
+while [[ $# > 1 ]]; do
+
+    key="$1"
+    case $key in
+        --http-server)
+            export http_repo="$2"
+            shift # past argument
+        ;;
+        --optus)
+            export http_repo="http://mirror.optus.net/pub/ubuntu"
+            shift # past argument
+        ;;
+        --iinet)
+            export http_repo="http://ftp.iinet.net.au/linux/ubuntu"
+            shift # past argument
+        ;;
+        --aarnet)
+            export http_repo="http://mirror.aarnet.edu.au/pub/ubuntu/archive"
+            shift # past argument
+        ;;
+        --internode)
+            export http_repo="http://mirror.internode.on.net/pub/ubuntu/ubuntu/"
+            shift # past argument
+        ;;
+        --usenext)
+            export usenext="1"
+        ;;
+        -uf|--uflav)
+            export flav="$2"
+            shift # past argument
+        ;;
+        -nuf|--nextuflav)
+            export nextflav="$2"
+            shift # past argument
+        ;;
+        --defaults)
+            export DEFAULTS="1"
+        ;;
+        *)
+            # unknown option
+        ;;
+    esac
+    shift # past argument or value
+done
+
+for repo in $repos; do
+    if [[ $usedeb == "1" ]]; then echo $(echo deb $http_repo $repo $repo_parts); fi
+    if [[ $usedebsrc == "1" ]]; then echo $(echo deb-src $http_repo $repo $repo_parts); fi
+done
+
+for repo in $canonical_repo; do
+    if [[ $usecanonical == "1" ]]; then echo $(echo deb $http_canonical $repo $canonical_repo_parts); fi
+    if [[ $usecanonicalsrc == "1" ]]; then echo $(echo deb-src $http_canonical $repo $canonical_repo_parts); fi
+done
+
+for repo in $security_repo; do
+    if [[ $usesecurity == "1" ]]; then echo $(echo deb $http_security $repo $security_repo_parts); fi
+    if [[ $usesecuritysrc == "1" ]]; then echo $(echo deb-src $http_security $repo $security_repo_parts); fi
+done
+
+if [[ $usenext == "1" ]]; then
+
+    repos="${nextflav} ${nextflav}-updates ${nextflav}-backports"
+    security_repo="${nextflav}"
+    canonical_repo="${nextflav}"
+
+    for repo in $repos; do
+        if [[ $usedeb == "1" ]]; then echo $(echo deb $http_repo $repo $repo_parts); fi
+        if [[ $usedebsrc == "1" ]]; then echo $(echo deb-src $http_repo $repo $repo_parts); fi
+    done
+
+    for repo in $canonical_repo; do
+        if [[ $usecanonical == "1" ]]; then echo $(echo deb $http_canonical $repo $canonical_repo_parts); fi
+        if [[ $usecanonicalsrc == "1" ]]; then echo $(echo deb-src $http_canonical $repo $canonical_repo_parts); fi
+    done
+
+    for repo in $security_repo; do
+        if [[ $usesecurity == "1" ]]; then echo $(echo deb $http_security $repo $security_repo_parts); fi
+        if [[ $usesecuritysrc == "1" ]]; then echo $(echo deb-src $http_security $repo $security_repo_parts); fi
+    done
+
+fi
+
