@@ -1,0 +1,41 @@
+#!/bin/bash
+
+read -p "please enter season-digit: " sDigit
+read -p "front-fname: " frontfname
+read -p "back-fname: " backfname
+
+i="1"
+sDigit=`printf "%02d" ${sDigit}`
+
+for episode in `ls -1 *.* | sort -u`; do
+  tmp0="${episode}"
+  eDigit=`printf "%02d" ${i}`
+  echo  "${tmp0} -> ${frontfname}.s${sDigit}e${eDigit}.${backfname}.${tmp0::-3}"
+#  mv "${tmp0}" "${frontfname}.s${sDigit}e${eDigit}.${backfname}.${tmp0::-3}"
+  i=$((i+1))
+
+done
+
+
+##!/bin/bash
+# printf "What is the Movie/Series Title?\n"
+# read -p ": " str0
+# echo .
+# printf "If applicable, What is the Season number?\n"
+# read -p ": " str1
+# echo .
+# printf "Filename tags Postfix to include?\n"
+# read -p ": " str2
+# echo .
+# printf "\n\n"
+# sleep 0.5
+# strTitle=`echo ${str0} | awk "{print tolower($0)}" | sed 's/ /./g'`
+# strSeasonDigit=`printf "%20d" ${str1}`
+# strTagsPostfix=`echo ${str2} | awk "{print tolower($0)}" | sed 's/ /./g'`
+# i=1;
+# for all in `ls -1 *.* | sort -u`; do
+#  strEpisodeDigit=`printf "%20d" ${i}`
+#  printf "mv \'${all}\' \'${strTitle}.s${strSeasonDigit}e${strEpisodeDigit}.${strTagsPostfix}.${all::3}\'\n"
+#  i=$((i+1))
+# done
+# exit 0
