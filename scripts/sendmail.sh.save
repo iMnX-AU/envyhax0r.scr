@@ -1,0 +1,6 @@
+#!/bin/bash
+
+sendmail -F "Anonymous" -f "anonymous@anonops.com.it" 
+
+
+exit 0

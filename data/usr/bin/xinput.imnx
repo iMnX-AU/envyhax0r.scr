@@ -1,8 +1,0 @@
-#!/bin/bash
-
-while read -r devID; do
-  xinput set-prop ${devID} "Device Accel Constant Deceleration" "3.000000";
-  xinput set-prop ${devID} "Device Accel Adaptive Deceleration" "3.000000";
-done < <(while read -r devNAME; do xinput | grep "${devNAME}" | grep -o "id=.*" | awk '{ print $1 }' | cut -d'=' -f2; done < <(cat xinput.devnames))
-
-exit 0
