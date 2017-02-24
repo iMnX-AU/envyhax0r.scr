@@ -1,3 +1,4 @@
-//imnx-pc/int2tb|/mnt/int2tb
-//imnx-pc/ext3tb|/mnt/ext3tb
-//imnx-pc/ext5tb|/mnt/ext5tb
+//10.77.25.50/int2tb|/mnt/int2tb
+//10.77.25.50/ext3tb|/mnt/ext3tb
+//10.77.25.50/ext5tb|/mnt/ext5tb
+//10.77.25.1/tftpd-dir|/mnt/tftpd
