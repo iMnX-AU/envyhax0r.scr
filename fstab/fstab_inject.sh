@@ -12,7 +12,8 @@ fi
 
 # setup credentials file.
 read -p "smb_username: " smb_user
-read -p "smb_password: " smb_pass
+read -srp "smb_password: " smb_pass
+printf "\n"
 read -p "smb_domain: " smb_domain
 
 rm -r "${smb_credentials}" > /dev/null &
