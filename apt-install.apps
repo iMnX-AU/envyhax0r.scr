@@ -20,6 +20,7 @@ else
   ./install.sh
   cd ../..
   cd fstab
-  
+  ./fstab_inject.sh
+  cd ..
   exit 0
 fi
