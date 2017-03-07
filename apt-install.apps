@@ -16,9 +16,10 @@ if [[ ! ${cmdline2} ]]; then
 else
   cd /usr/src
   git clone -b master --depth=1 http://github.com/imnx/envyhax0r.scr envyhax0r-scr/
-  cd envyhax0r-scr/fonts/ohsnap-font*
+  cd envyhax0r-scr/fonts/ohsnap-installer
   ./install.sh
   cd ../..
   cd fstab
+  
   exit 0
 fi
