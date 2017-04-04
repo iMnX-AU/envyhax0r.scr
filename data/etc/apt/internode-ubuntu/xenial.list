@@ -1,0 +1,8 @@
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-updates main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-updates main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-backports main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-backports main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-security main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ xenial-security main restricted universe multiverse
