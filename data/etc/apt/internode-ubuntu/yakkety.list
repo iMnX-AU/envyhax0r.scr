@@ -1,0 +1,8 @@
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-updates main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-updates main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-backports main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-backports main restricted universe multiverse
+deb http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-security main restricted universe multiverse
+deb-src http://mirror.internode.on.net/pub/ubuntu/ubuntu/ yakkety-security main restricted universe multiverse
