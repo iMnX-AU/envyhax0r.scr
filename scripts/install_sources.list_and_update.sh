@@ -29,5 +29,5 @@ apt-get update
 
 apt-get -y install openssh-server samba cifs-utils psmisc dnsutils pv dialog build-essential automake autoconf autotools-dev \
 git subversion mercurial cvs libtool intltool bison flex nasm yasm mc mc-data irssi irssi-scripts iptraf sudo doxygen apt-utils \
-software-properties-common aptitude  cmake qt5-default perl-base curl perl5 python python-pip python3 python3-pip python-serial \
+software-properties-common aptitude  cmake qt5-default perl-base curl perl python python-pip python3 python3-pip python-serial \
 python3-serial vlc ffmpeg *-6-multilib intel-microcode amd64-microcode 
