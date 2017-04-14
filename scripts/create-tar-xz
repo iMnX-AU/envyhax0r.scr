@@ -3,8 +3,7 @@
 if [[ $1 ]]; then
   if [[ $2 ]]; then
     curDir="$(pwd)"
-    cd "${1}"
-    tar -cf - * | xz -9 -c - > "${2}"
+    tar -cvf - ${1} | xz -9 -c - > "${2}"
     cd "${curDir}"
   else
     printf "arg2 is not set.\n"
