@@ -2,8 +2,11 @@
 
 function github () {
 
+  setBranch="0"
+
   case $1 in
-    "-b") gitBranch="`echo ${1} | cut -d'=' -f2`"; shift;; 
+    "-b") gitBranch="`echo ${1} | cut -d'=' -f2`"; setBranch="1"; shift;; 
+
     *) true ;;
   esac 
 
@@ -18,7 +21,13 @@ function github () {
     gitOut="${2}"
   fi
 
-  gitShellStr="git clone -b ${gitBranch} --depth=1 ${gitUrl2} ${gitOut}
+  if [[ setBranch == "1" ]]; then
+    gitShellStr="git clone -b ${gitBranch} --depth=1 ${gitUrl2} ${gitOut}"
+  else
+    gitShellStr="git clone -b master --depth=1 ${gitUrl2} ${gitOut}"
+  fi
+
+  ${gitShellStr}
 
 }
 
