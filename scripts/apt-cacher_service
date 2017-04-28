@@ -1,0 +1,35 @@
+#!/usr/bin/sudo /bin/bash
+
+function startACNG () {
+	mkdir -p /mnt/vhdd0
+  sleep 0.1
+	mount /media/sf_vhdds/apt-cacher-ng*.img /mnt/vhdd0
+	sleep 0.1
+	ln -s  /mnt/vhdd0 /services/apt-cacher-ng
+	sleep 0.1
+	(/services/apt-cacher-ng/apt-cacher.sh 1> /dev/null 2> /dev/null)&
+}
+
+function stopACNG () {
+  killall apt-cacher-ng
+  sleep 0.1
+	umount /mnt/vhdd0 && sleep 0.1 && rmdir /mnt/vhdd0
+  sleep 0.1
+	rm /services/apt-cacher-ng
+}
+
+function restartACNG () {
+	stopACNG 2> /dev/null&
+  /bin/sleep 0.5
+  stopACNG 2> /dev/null&
+  /bin/sleep 0.5
+	startACNG 2> /dev/null&
+}
+case $1 in
+  start) startACNG;;
+  stop) stopACNG;;
+  reload) reloadACNG;;
+  restart) restartACNG;;
+  status) statusACNG;;
+  *);;
+esac
