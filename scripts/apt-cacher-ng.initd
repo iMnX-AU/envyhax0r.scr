@@ -1,0 +1,76 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:             apt-cacher-ng
+# Required-Start:       $local_fs $network $remote_fs $syslog
+# Required-Stop:        $local_fs $network $remote_fs $syslog
+# Default-Start:        2 3 4 5
+# Default-Stop:			0 1
+# Short-Description:    APT-Cacher-NG Service
+### END INIT INFO
+
+if [[ $UID == "0" ]]; then
+
+(modprobe vboxsf)&
+
+function startACNG () {
+	mkdir -p /mnt/vhdd0 && 	mount /media/sf_int2tb/VHDDs/apt-cacher-ng_65G_service_vhdd.img /mnt/vhdd0 && /bin/sleep 0.1 && ln -s  /mnt/vhdd0 /services/apt-cacher-ng
+	export PATH="/services/apt-cacher-ng/bin:${PATH}"
+   if [[ -e "/services/apt-cacher-ng/bin/apt-cacher-ng" ]]; then
+		/services/apt-cacher-ng/bin/apt-cacher-ng -c /services/apt-cacher-ng/cfg && JOB_PID="$!" 
+		echo "PID=${JOB_PID}" && echo "${JOB_PID}" > /services/apt-cacher-ng/apt-cacher-ng.pid
+	else
+		printf "Either the symlink or the mount has failed, please investigate... [error].\n"
+      if [[ -e /services/apt-cacher-ng/apt-cacher-ng.pid ]]; then
+			rm /services/apt-cacher-ng/apt-cacher-ng.pid
+		fi
+	fi
+}
+
+function stopACNG () {
+	kill -9 `cat /services/apt-cacher-ng/apt-cacher-ng.pid` && /bin/sleep 0.1 && rm /services/apt-cacher-ng && umount /mnt/vhdd0 && rmdir /mnt/vhdd0
+}
+
+function restartACNG () {
+	(stopACNG; stopACNG) >&2
+	/bin/sleep 0.5
+	(startACNG) >&2
+}
+
+function reloadACNG () {
+	true
+}
+
+function statusACNG () {
+	test0="`mount | grep 'apt-cacher-ng'`"
+	if [[ ! ${test0} ]]; then
+		printf "==============================================================================================================\n"
+		printf "[ Status: Not Active ]\n"
+		printf "======================\n"
+		printf " The apt-cacher-ng network image doesn't appear to be mounted on this system.\n"
+		printf "==============================================================================================================\n"
+	else
+		printf "==============================================================================================================\n"
+		printf "[ Status: Active ]\n"
+		printf "==================\n"
+		printf " The apt-cacher-ng network image appears to be mounted on this system fine.\n"
+		printf "==============================================================================================================\n"
+		printf " `mount | grep 'apt-cacher-ng'`\n"
+		printf "==============================================================================================================\n"
+	fi
+}
+
+case $1 in
+	start) startACNG;;
+	stop) stopACNG;;
+	reload) reloadACNG;;
+	restart) restartACNG;;
+	status) statusACNG;;
+	*);;
+esac
+
+else
+
+	printf "This script requires root permissions, please invoke sudo to continue.\n"
+
+fi
