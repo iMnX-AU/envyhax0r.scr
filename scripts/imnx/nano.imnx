@@ -1,0 +1,20 @@
+#!/usr/bin/sudo /bin/bash
+function getMODE() {
+	if [[ ! ${1} ]]; then
+	   read -p "Filename: " fileNAME
+	   if [[ ! ${fileNAME} ]]; then
+	      printf "No filename specified, script cannot continue.\n"
+	      exit 1
+	   fi
+	else
+	   fileNAME="${1}"
+	fi
+	stat --format '%a' "${fileNAME}"
+}
+fileOWNER="`ls -1al ${1} | awk '{print $3}'`"
+fileGROUP="`ls -1al ${1} | awk '{print $4}'`"
+fileMODE="`getMODE ${1}`"
+nano ${1}
+chmod ${fileMODE} ${1}
+chown ${fileOWNER}:${fileGROUP} ${1}
+exit 0

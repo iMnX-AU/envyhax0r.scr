@@ -1,0 +1,12 @@
+#!/usr/bin/sudo /bin/bash
+if [[ ! $1 ]]; then
+	read -p "Filename: " fileNAME
+	if [[ ! ${fileNAME} ]]; then
+		printf "No filename specified, script cannot continue.\n"
+		exit 1
+	fi
+else
+	fileNAME="${1}"
+fi
+stat --format '%a' "${fileNAME}"
+exit 0

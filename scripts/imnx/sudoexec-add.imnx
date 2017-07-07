@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ ! ${1} ]]; then
+   printf "No executable basename specified.\n"
+   exit 1
+else
+	printf "Adding \'${1}\' to the \'${HOME}/.bash_sudoexec\' list...\n"
+	echo ${1} >> ${HOME}/.bash_sudoexec
+	exit 0
+fi
+
+update-bash
+

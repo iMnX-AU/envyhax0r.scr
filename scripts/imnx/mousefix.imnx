@@ -1,0 +1,20 @@
+#!/usr/bin/sudo /bin/bash
+
+srcDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
+case ${1} in
+	--install)
+		printf "Installing script and device list to current machine...\n"
+		cp "${srcDIR}/mousefix.imnx" "/usr/bin/" -rv && cp "${srcDIR}/mousefix.devlist" "/etc/" -rv
+		printf "Done.\n" ;;
+   *) false;;
+esac
+
+printf "Lowering mouse acceleration for HiDPI mice...\n"
+while read -r devNAME; do
+	while read -r devID; do
+	  xinput set-prop ${devID} "Device Accel Constant Deceleration" 3.500000
+	  xinput set-prop ${devID} "Device Accel Adaptive Deceleration" 3.500000
+	done < <(xinput | grep "${devNAME}" | grep -o "id=.*" | awk '{print $1}' | cut -d'=' -f2)
+done < <(cat '/etc/mousefix.devlist')
+printf "Lowering mouse acceleration for HiDPI mice... [Done!].\n"
