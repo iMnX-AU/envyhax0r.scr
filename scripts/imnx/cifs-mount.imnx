@@ -1,0 +1,40 @@
+#!/usr/bin/sudo /bin/bash
+
+function mount.cifs() {
+  ntwkShare=${1}
+  mntPoint=${2}
+  mntOpts=user=imnx,uid=1001,gid=1001
+
+  if [[ -e ${2} ]]; then
+    if [[ -d ${2} ]]; then
+      printf "NFO: Mount point exists, mounting.\n"
+      printf "NFO: Attempting to mount ${1} to ${2} ...\n"
+      sudo mount.cifs -o ${mntOpts} ${1} ${2}
+      printf "NFO: Attempting to mount ${1} to ${2} ... done.\n"
+    fi
+  else
+    printf "NFO: Mount point does not exist.\n"
+    read -p "Q: Create required mount point? (Y/N): " choiceYN
+    if [[ ${choiceYN} == "y" ]]; then
+      printf "NFO: Creating mount point \"${2}\".\n"
+      sudo mkdir -p "${2}"
+      printf "NFO: Attempting to mount \"${1}\" to \"${2}\" ...\n"
+      sudo mount.cifs -o ${mntOpts} "${1}" "${2}"
+      printf "NFO: Attempting to mount \"${1}\" to \"${2}\" ... done.\n"
+    elif [[ ${choiceYN} == "Y" ]]; then
+      printf "NFO: Creating mount point ${2}.\n"
+      sudo mkdir -p "${2}"
+      printf "NFO: Attempting to mount \"${1}\" to \"${2}\" ...\n"
+      sudo mount.cifs -o ${mntOpts} "${1}" "${2}"
+      printf "NFO: Attempting to mount \"${1}\" to \"${2}\" ... done.\n"
+    elif [[ ${choiceYN} == "n" ]]; then
+      printf "NFO: Can't continue, mount point doesn't exist and you have chosen not to create mount point.\n"
+    elif [[ ${choiceYN} == "N" ]]; then
+      printf "NFO: Can't continue, mount point doesn't exist and you have chosen not to create mount point.\n"
+    else
+      printf "NFO: Unknown Selection.\n"
+    fi
+  fi
+}
+
+mount.cifs ${1} ${2}
