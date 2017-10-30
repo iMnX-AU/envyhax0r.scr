@@ -1,0 +1,22 @@
+#!/bin/bash
+
+function youtubeDownload {
+        read -p 'Youtube-URL to download: ' youtubeURL
+	youtube-dl --prefer-ffmpeg --ffmpeg-location /usr/bin/ffmpeg -f mp4 --audio-format aac --audio-quality 192k --no-check-certificate --prefer-insecure --recode-video mp4 ${youtubeURL}
+        anotherQuestion
+}
+
+function anotherQuestion {
+	read -p "Would you like to download another? [Y/y/N/n]: " questionANSWER
+	if [[ ${questionANSWER} == "y" || ${questionANSWER} == "Y" ]]; then
+		youtubeDownload
+	elif [[ ${questionANSWER} == "n" || ${questionANSWER} == "N" ]]; then
+		printf "Goodbye. :D\n"
+		exit 0
+	else
+		printf "Unknown response. Exitting...\n"
+		exit 1
+	fi
+}
+
+youtubeDownload
