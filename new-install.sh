@@ -28,7 +28,7 @@ export x11_pkgs="pidgin tilda zenity qt5-default qt5-qmake"
 export dev_pkgs="build-essential automake autotools-dev automake autoconf autopoint autogen autoproject libtool intltool"
 export dev_pkgs="${dev_pkgs} git cvs mercurial subversion pandoc libjson-glib-dev libpurple-dev cmake gccgo llvm"
 export dev_pkgs="${dev_pkgs} gfortran gcc-arm-linux-gnueabihf gcc-aarch64-linux-gnu openjdk-8-jdk-headless bison byacc nasm"
-export dev_pkgs="${dev_pkgs} yasm gawk"
+export dev_pkgs="${dev_pkgs} yasm gawk python python-pip python-dev python3 python3-pip python3-dev curl perl"
 
 export dev_build-dep="ffmpeg vlc kodi ircii youtube-dl"
 
@@ -52,7 +52,28 @@ else
    rm .tmpsshd.md5sum
 fi
 
+if [[ ${1} == "--include-x11" ]]; then
+   apt -yq install ${pkgs} ${dev_pkgs} ${x11_pkgs}
+else 
+   apt -yq install ${pkgs} ${dev_pkgs}
+fi
+
+if [[ ${dev_build-dep} ]]; then
+   apt -yq build-dep ${dev_build-dep}
+fi
+
 apt -yq install linux-{image,headers}-lowlatency
 apt -yq remove --purge linux-{image,headers}*generic
 apt -yq autoremove
-reboot
+
+function rebootQuestion() {
+   read -p "\nWould you like to reboot? (y/N): " yesNO
+}
+
+if [[ ${yesNO} == y || ${yesNO} == Y ]]; then
+   reboot
+elif [[ ${yesNO} == n || ${yesNO} == N ]]; then
+   printf "[INFO]: Script done.\n"
+else
+   rebootQuestion
+fi
