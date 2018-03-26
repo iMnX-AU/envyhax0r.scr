@@ -27,10 +27,10 @@ export x11_pkgs="pidgin tilda zenity qt5-default qt5-qmake"
 # build-essential packages.
 export dev_pkgs="build-essential automake autotools-dev automake autoconf autopoint autogen autoproject libtool intltool"
 export dev_pkgs="${dev_pkgs} git cvs mercurial subversion pandoc libjson-glib-dev libpurple-dev cmake gccgo llvm"
-export dev_pkgs="${dev_pkgs} gfortran gcc-arm-linux-gnueabihf gcc-aarch64-linux-gnu openjdk-8-jdk-headless bison byacc nasm"
+export dev_pkgs="${dev_pkgs} gfortran openjdk-8-jdk-headless bison byacc nasm"
 export dev_pkgs="${dev_pkgs} yasm gawk python python-pip python-dev python3 python3-pip python3-dev curl perl"
 
-export dev_build-dep="ffmpeg vlc kodi ircii youtube-dl"
+export dev_build_dep="ffmpeg vlc kodi ircii youtube-dl"
 
 md5sum /etc/default/grub > .tmpgrub.md5sum
 nano /etc/default/grub
@@ -59,7 +59,7 @@ else
 fi
 
 if [[ ${dev_build-dep} ]]; then
-   apt -yq build-dep ${dev_build-dep}
+   apt -yq build-dep ${dev_build_dep}
 fi
 
 apt -yq install linux-{image,headers}-lowlatency
