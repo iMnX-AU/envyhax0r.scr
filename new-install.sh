@@ -38,3 +38,8 @@ else
    /etc/init.d/ssh restart
    rm .tmpsshd.md5sum
 fi
+
+apt -yq install linux-{image,headers}-lowlatency
+apt -yq remove --purge linux-{image,headers}*generic
+apt -yq autoremove
+reboot
