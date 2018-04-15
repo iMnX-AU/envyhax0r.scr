@@ -1,0 +1,6 @@
+#!/usr/bin/sudo /bin/bash
+mkdir -p /usr/src && cd /usr/src
+rm -r ./ohsnap-1.8.0 2> /dev/null 
+git clone -b master --depth=1 http://github.com/imnx/ohsnap-1.8.0 /usr/src/ohsnap-1.8.0
+cd ./ohsnap-1.8.0 && bash ./install.sh
+exit 0
