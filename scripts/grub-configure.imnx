@@ -1,0 +1,13 @@
+#!/usr/bin/sudo /bin/bash
+
+for all in `cat /etc/lsb-release`; do
+   export `echo ${all}`
+done
+
+if [ ${DISTRIB_ID} == "Ubuntu" ]; then
+   cp -v ./grub-default-conf.ubuntu /etc/default/grub
+else
+   cp -v ./grub-default-conf.debian /etc/default/grub
+fi
+
+update-grub && update-grub2
