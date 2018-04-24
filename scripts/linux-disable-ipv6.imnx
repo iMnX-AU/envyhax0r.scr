@@ -1,0 +1,6 @@
+#!/usr/bin/sudo /bin/bash
+printf "[INFO]: Disabling IPv6 on current Workstation..."
+(sysctl -w net.ipv6.conf.all.disable_ipv6=1)&
+(sysctl -w net.ipv6.conf.default.disable_ipv6=1)&
+sleep 3
+printf " done!\n"
