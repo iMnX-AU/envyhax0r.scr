@@ -1,0 +1,24 @@
+#!/bin/bash
+
+### BEGIN INIT INFO
+# Provides:    mac-fn-keys.imnx
+# Required-Start: $remote_fs $syslog
+# Required-Stop:  $remote_fs $syslog
+# Default-Start:  2 3 4 5
+# Default-Stop:
+# Short-Description: Enable function keys for MacBook Air by default.
+### END INIT INFO
+
+set -e
+
+function pFunc() {
+   sudo su -c "echo -n 0x02 > /sys/module/hid_apple/parameters/fnmode"
+}
+
+case ${1} in
+   start) pFunc ;;
+   stop) pFunc ;;
+   restart) pFunc ;;
+   status) pFunc ;;
+   *) ;;
+esac
